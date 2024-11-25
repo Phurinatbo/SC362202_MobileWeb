@@ -1,0 +1,215 @@
+/* General body styling */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f8f9fa;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+/* General Navbar Styling */
+.navbar {
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 10px 20px;
+}
+
+/* Navbar Brand Title */
+.navbar-brand.web-title {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #ffc107 !important; /* Bright yellow for branding */
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.navbar-brand:hover {
+    text-shadow: 0px 3px 5px rgba(255, 193, 7, 0.8); /* Glow effect */
+    color: #ffcc00 !important;
+}
+
+/* Navigation Links */
+.nav-link {
+    color: #f8f9fa; /* Light gray */
+    font-size: 1.1rem;
+    font-weight: 500;
+    transition: color 0.3s ease-in-out, text-shadow 0.3s ease-in-out;
+}
+
+.nav-link:hover {
+    color: #ffc107; /* Highlight on hover */
+    text-shadow: 0px 2px 4px rgba(255, 193, 7, 0.8); /* Glow effect */
+}
+
+/* Login and Sign Up Buttons */
+.nav-item a span {
+    margin-right: 8px; /* Space between icon and text */
+}
+
+.nav-item .nav-link {
+    padding: 8px 15px;
+    border-radius: 5px;
+}
+
+.nav-item .nav-link:hover {
+    background-color: #495057; /* Slightly darker background */
+    color: #ffc107 !important; /* Consistent with the brand color */
+}
+
+/* Toggler Icon Styling */
+.navbar-toggler {
+    border: none;
+    background-color: #ffc107;
+    padding: 6px 10px;
+    border-radius: 5px;
+}
+
+.navbar-toggler-icon {
+    filter: invert(1); /* Makes the icon white */
+}
+
+/* Navbar Background */
+.navbar-dark {
+    background-color: #343a40; /* Dark gray */
+    transition: background-color 0.3s ease-in-out;
+}
+
+.navbar-dark:hover {
+    background-color: #23272b; /* Slightly darker */
+}
+
+
+/* Intro container styling */
+.intro-container {
+    padding: 30px 15px;
+    background-color: #ffffff;
+    border: 1px solid #e0e0e0;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.intro-container h1 {
+    font-size: 2.5rem;
+    color: #000000;
+    margin-bottom: 10px;
+}
+
+.intro-container p {
+    font-size: 1.2rem;
+    color: #555;
+}
+
+#startQuiz {
+    padding: 10px 20px;
+    font-size: 1.2rem;
+    border-radius: 5px;
+}
+
+/* Quiz container styling */
+.quiz-container {
+    padding: 20px 15px;
+    background-color: #ffffff;
+    border: 1px solid #e0e0e0;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+#quiz-title {
+    font-size: 1.8rem;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+.question {
+    font-size: 1.2rem;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+.question label {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+.question input {
+    margin-right: 10px;
+}
+
+/* Buttons styling */
+button {
+    padding: 10px 20px;
+    font-size: 1rem;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+button:hover {
+    box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.2);
+}
+
+#nextQuestion {
+    background-color: #ffc107;
+    color: black;
+}
+
+#nextQuestion:hover {
+    background-color: #ffffff;
+}
+
+#submitQuiz {
+    background-color: #28a745;
+    color: white;
+}
+
+#submitQuiz:hover {
+    background-color: #1e7e34;
+}
+
+#restartQuiz {
+    background-color: #17a2b8;
+    color: white;
+}
+
+#restartQuiz:hover {
+    background-color: #117a8b;
+}
+
+/* Result container styling */
+.result-container {
+    padding: 20px 15px;
+    background-color: #ffffff;
+    border: 1px solid #e0e0e0;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.result-container h2 {
+    font-size: 2rem;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+.result-container p {
+    font-size: 1.5rem;
+    color: #007bff;
+}
+
+.do-btn{
+    background-color: #ffc107;
+}
+
+.next-btn {
+    background-color: #ffc107;
+}
+
+.web-title {
+    font-size: 2rem;
+    color: #ffc107;
+}
+
+strong{
+    color: #000000;
+}

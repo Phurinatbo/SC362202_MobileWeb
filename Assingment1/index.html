@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="th">
+
+    <head>
+        <title>Examinate</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+        <script
+            src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+        <script
+            src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+        <link rel="stylesheet" href="assingment1.css">
+    </head>
+
+    <body>
+
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div class="container-fluid">
+                <a class="navbar-brand web-title"
+                    href="index.html">Examinate</a>
+                <button class="navbar-toggler" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="#"><span
+                                    class="bi bi-person"></span> Sign Up</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#"><span
+                                    class="bi bi-box-arrow-in-right"></span>
+                                Login</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <div class="container mt-4">
+            <div class="intro-container text-center">
+                <h1>ยินดีต้อนรับสู่แบบทดสอบ!</h1>
+                <p>แบบทดสอบคณิตศาสตร์</p>
+                <button id="startQuiz"
+                    class="btn do-btn">เริ่มทำแบบทดสอบ</button>
+            </div>
+
+            <div class="quiz-container" style="display: none;">
+                <h2 id="quiz-title" class="text-center"></h2>
+                <div id="questions-container" class="mt-3"></div>
+                <div class="d-flex justify-content-between mt-3">
+                    <button id="prevQuestion" class="btn btn-warning"
+                        style="display: none;">ย้อนกลับ</button>
+                    <button id="nextQuestion"
+                        class="btn btn-primary">ถัดไป</button>
+                    <button id="submitQuiz" class="btn btn-success"
+                        style="display: none;">ตรวจคำตอบ</button>
+                </div>
+            </div>
+
+            <div class="result-container text-center" style="display: none;">
+                <h2>ผลคะแนน</h2>
+                <p id="score"></p>
+                <div id="answers-container" class="mt-3 text-start"></div>
+                <button id="restartQuiz"
+                    class="btn btn-primary">เริ่มใหม่</button>
+            </div>
+        </div>
+
+        <script>
+        let currentQuestionIndex = 0;
+        let totalQuestions = 0;
+        let answers = [];
+        let questionsData = [];
+
+        // โหลดข้อมูลข้อสอบจากไฟล์ JSON
+        $.getJSON('quiz_data.json', function (data) {
+            $('#quiz-title').text(data.quiz_title);
+            questionsData = data.questions;
+            totalQuestions = questionsData.length;
+
+            // ฟังก์ชันในการแสดงคำถาม
+            function loadQuestion(index) {
+                const question = questionsData[index];
+                let questionHTML = `<div class="question">
+                    <p>${index + 1}. ${question.question}</p>`;
+                question.choices.forEach(choice => {
+                    questionHTML += `<label>
+                        <input type="radio" name="question${index}" value="${choice}" ${answers[index] === choice ? 'checked' : ''}> ${choice}
+                    </label><br>`;
+                });
+                questionHTML += `</div>`;
+                $('#questions-container').html(questionHTML);
+
+                // จัดการแสดงปุ่ม "ย้อนกลับ" และ "ถัดไป"
+                if (index === 0) {
+                    $('#prevQuestion').hide();
+                } else {
+                    $('#prevQuestion').show();
+                }
+                if (index === totalQuestions - 1) {
+                    $('#nextQuestion').hide();
+                    $('#submitQuiz').show();
+                } else {
+                    $('#nextQuestion').show();
+                    $('#submitQuiz').hide();
+                }
+            }
+
+            // เริ่มทำแบบทดสอบ
+            $('#startQuiz').click(function () {
+                $('.intro-container').hide();
+                $('.quiz-container').show();
+                loadQuestion(currentQuestionIndex);
+            });
+
+            // ปุ่มย้อนกลับ
+            $('#prevQuestion').click(function () {
+                const selectedAnswer = $(`input[name="question${currentQuestionIndex}"]:checked`).val();
+                if (selectedAnswer) {
+                    answers[currentQuestionIndex] = selectedAnswer;
+                }
+                if (currentQuestionIndex > 0) {
+                    currentQuestionIndex--;
+                    loadQuestion(currentQuestionIndex);
+                }
+            });
+
+            // ปุ่มถัดไป
+            $('#nextQuestion').click(function () {
+                const selectedAnswer = $(`input[name="question${currentQuestionIndex}"]:checked`).val();
+                if (!selectedAnswer) {
+                    alert("กรุณาเลือกคำตอบก่อนถัดไป");
+                    return;
+                }
+                answers[currentQuestionIndex] = selectedAnswer;
+                if (currentQuestionIndex < totalQuestions - 1) {
+                    currentQuestionIndex++;
+                    loadQuestion(currentQuestionIndex);
+                }
+            });
+
+            // ปุ่มตรวจคำตอบ
+$('#submitQuiz').click(function () {
+    // เก็บคำตอบของคำถามปัจจุบัน (รวมถึงข้อสุดท้าย)
+    const selectedAnswer = $(`input[name="question${currentQuestionIndex}"]:checked`).val();
+    if (selectedAnswer) {
+        answers[currentQuestionIndex] = selectedAnswer;
+    }
+
+    let score = 0;
+    let answersHTML = '<div class="list-group">';
+    questionsData.forEach((question, index) => {
+        const isCorrect = answers[index] === question.correct_answer;
+        answersHTML += `
+            <div class="list-group-item">
+                <h5>${index + 1}. ${question.question}</h5>
+                <p>
+                    <strong>คำตอบของคุณ:</strong> 
+                    <span style="color: ${isCorrect ? 'green' : 'red'};">
+                        ${answers[index] || 'ยังไม่ได้ตอบ'}
+                    </span>
+                </p>
+                <p>
+                    <strong>คำตอบที่ถูกต้อง:</strong> 
+                    <span style="color: green;">${question.correct_answer}</span>
+                </p>
+                <p>
+                    <strong>ผลลัพธ์:</strong> 
+                    <span style="color: ${isCorrect ? 'green' : 'red'};">
+                        ${isCorrect ? 'ถูกต้อง!' : 'ผิด!'}
+                    </span>
+                </p>
+            </div>`;
+        if (isCorrect) score++;
+    });
+    answersHTML += '</div>';
+
+    $('.quiz-container').hide();
+    $('.result-container').show();
+    $('#score').text(`คุณได้คะแนน ${score} จาก ${totalQuestions} คะแนน`);
+    $('#answers-container').html(answersHTML);
+});
+
+            // เริ่มแบบทดสอบใหม่
+            $('#restartQuiz').click(function () {
+                location.reload();
+            });
+        });
+    </script>
+    </body>
+
+</html>
