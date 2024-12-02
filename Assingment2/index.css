@@ -1,0 +1,50 @@
+.welcome-card {
+    background-image: linear-gradient(to bottom right, #f5f7fa, #c3cfe2);
+    border: 1px solid #e0e0e0;
+    border-radius: 16px;
+}
+
+.welcome-title {
+    font-weight: bold;
+    letter-spacing: 0.05em;
+}
+
+.welcome-subtitle {
+    color: #757575;
+}
+
+.container {
+    max-width: 100%;
+    padding: 12px;
+    box-sizing: border-box;
+}
+
+.questions h3 {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    white-space: normal;
+}
+
+.v-radio {
+    display: flex;
+    align-items: center;
+}
+
+.v-radio-group .v-radio .v-input--radio {
+    border-color: #000;
+}
+
+.v-radio .v-label {
+    color: #000;
+
+}
+
+.v-radio:hover .v-input--radio {
+    border-color: #1976D2;
+
+}
+
+.v-application {
+    background: #fff !important; /* กำหนดพื้นหลังสีขาว */
+    color: #000 !important; /* กำหนดสีข้อความ */
+  }

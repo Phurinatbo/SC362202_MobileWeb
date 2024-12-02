@@ -1,0 +1,105 @@
+{
+    "quiz_title": "แบบทดสอบสังคมศาตร์",
+    "questions": [
+        {
+            "question": "He _______ to the park every Sunday.",
+            "choices": ["A) go", "B) going", "C) goes", "D) gone", "E) is going"],
+            "correct_answer": "C) goes"
+        },
+        {
+            "question": "This book is _______ than the other one.",
+            "choices": ["A) more interesting", "B) interesting", "C) most interesting", "D) interestinger", "E) interested"],
+            "correct_answer": "A) more interesting"
+        },
+        {
+            "question": "We _______ to the market last weekend.",
+            "choices": ["A) go", "B) going", "C) went", "D) goes", "E) gone"],
+            "correct_answer": "C) went"
+        },
+        {
+            "question": "She always _______ early.",
+            "choices": ["A) arrive", "B) arrived", "C) arrives", "D) arriving", "E) is arriving"],
+            "correct_answer": "C) arrives"
+        },
+        {
+            "question": "The cat is hiding _______ the table.",
+            "choices": ["A) in", "B) on", "C) under", "D) at", "E) for"],
+            "correct_answer": "C) under"
+        },
+        {
+            "question": "If it _______ tomorrow, we will cancel the trip.",
+            "choices": ["A) rains", "B) rained", "C) will rain", "D) rain", "E) raining"],
+            "correct_answer": "A) rains"
+        },
+        {
+            "question": "My father _______ a new car last year.",
+            "choices": ["A) buys", "B) buy", "C) bought", "D) buying", "E) is buying"],
+            "correct_answer": "C) bought"
+        },
+        {
+            "question": "I can’t find my keys. I _______ lost them.",
+            "choices": ["A) have", "B) has", "C) had", "D) have been", "E) am"],
+            "correct_answer": "A) have"
+        },
+        {
+            "question": "She is _______ in playing the piano.",
+            "choices": ["A) good", "B) well", "C) better", "D) best", "E) goodly"],
+            "correct_answer": "B) well"
+        },
+        {
+            "question": "They _______ to school by bus every day.",
+            "choices": ["A) goes", "B) going", "C) went", "D) go", "E) will go"],
+            "correct_answer": "D) go"
+        },
+        {
+            "question": "I _______ my homework every day.",
+            "choices": ["A) do", "B) does", "C) did", "D) doing", "E) done"],
+            "correct_answer": "A) do"
+        },
+        {
+            "question": "This is the _______ movie I have ever seen.",
+            "choices": ["A) more exciting", "B) most exciting", "C) exciting", "D) more excited", "E) most excited"],
+            "correct_answer": "B) most exciting"
+        },
+        {
+            "question": "We _______ the exam tomorrow.",
+            "choices": ["A) have", "B) had", "C) having", "D) has", "E) will have"],
+            "correct_answer": "E) will have"
+        },
+        {
+            "question": "He _______ to the supermarket when I saw him.",
+            "choices": ["A) went", "B) was going", "C) go", "D) is going", "E) goes"],
+            "correct_answer": "B) was going"
+        },
+        {
+            "question": "If she _______ early, she could have caught the bus.",
+            "choices": ["A) leave", "B) leaving", "C) left", "D) leaves", "E) had left"],
+            "correct_answer": "C) left"
+        },
+        {
+            "question": "I am going to the market _______ I finish my work.",
+            "choices": ["A) until", "B) after", "C) when", "D) while", "E) before"],
+            "correct_answer": "B) after"
+        },
+        {
+            "question": "He _______ to play tennis every weekend.",
+            "choices": ["A) likes", "B) liking", "C) liked", "D) like", "E) will like"],
+            "correct_answer": "A) likes"
+        },
+        {
+            "question": "The children _______ in the garden at the moment.",
+            "choices": ["A) play", "B) plays", "C) played", "D) are playing", "E) is playing"],
+            "correct_answer": "D) are playing"
+        },
+        {
+            "question": "I have _______ seen this movie before.",
+            "choices": ["A) never", "B) ever", "C) always", "D) sometimes", "E) frequently"],
+            "correct_answer": "A) never"
+        },
+        {
+            "question": "My mother _______ a delicious cake yesterday.",
+            "choices": ["A) bakes", "B) baking", "C) baked", "D) bake", "E) is baking"],
+            "correct_answer": "C) baked"
+        }
+    ]
+}
