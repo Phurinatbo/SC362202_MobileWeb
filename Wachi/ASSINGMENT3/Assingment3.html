@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz App</title>
+    <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+        crossorigin="anonymous">
+</head>
+<body>
+    <div id="myapp" class="container p-4"></div>
+    <script type="text/babel">
+        class App extends React.Component {
+            state = {
+                qlist: [], // List of questions
+                status: 0, // 0: Menu, 1: Quiz, 2: Show Score
+                answers: {}, // User's answers
+                valid: false, // Validation if all questions are answered
+                score: 0, // Final score
+                correctAnswers: [], // List of correct/incorrect answers
+                loading: false, // Loading state
+                error: null // Error message
+            };
+
+            componentDidMount() {
+                this.loadQuizData();
+            }
+
+            async loadQuizData() {
+                try {
+                    this.setState({ loading: true });
+                    const res = await fetch("quiz_data.json");
+                    if (!res.ok) throw new Error("Failed to fetch quiz data");
+                    const data = await res.json();
+                    this.setState({ qlist: data, loading: false });
+                } catch (error) {
+                    this.setState({ error: error.message, loading: false });
+                }
+            }
+
+            validate() {
+                const valid = this.state.qlist.every((q, i) => this.state.answers["q" + i]);
+                this.setState({ valid });
+            }
+
+            checkAnswers() {
+                const { qlist, answers } = this.state;
+                let score = 0;
+                const correctAnswers = qlist.map((q, i) => {
+                    const isCorrect = q.answer == answers["q" + i];
+                    if (isCorrect) score++;
+                    return isCorrect;
+                });
+                this.setState({ score, correctAnswers, status: 2 });
+            }
+
+            render() {
+                const { status, loading, error, qlist, valid, score, correctAnswers } = this.state;
+
+                if (loading) return <div>Loading...</div>;
+                if (error) return <div className="text-danger">Error: {error}</div>;
+
+                return (
+                    <div className="card">
+                        <div className="card-header text-center">
+                            <h3>Quiz App</h3>
+                        </div>
+                        <div className="card-body">
+                            {status === 0 && <Menu startQuiz={() => this.setState({ status: 1 })} />}
+                            {status === 1 && (
+                                <QList
+                                    qlist={qlist}
+                                    answers={this.state.answers}
+                                    valid={valid}
+                                    onAnswerChange={(name, value) => {
+                                        this.setState(
+                                            (prevState) => ({
+                                                answers: { ...prevState.answers, [name]: value }
+                                            }),
+                                            () => this.validate()
+                                        );
+                                    }}
+                                    checkAnswers={() => this.checkAnswers()}
+                                />
+                            )}
+                            {status === 2 && (
+                                <ShowScore
+                                    qlist={qlist}
+                                    score={score}
+                                    correctAnswers={correctAnswers}
+                                    restartQuiz={() =>
+                                        this.setState({
+                                            status: 0,
+                                            answers: {},
+                                            valid: false,
+                                            score: 0,
+                                            correctAnswers: []
+                                        })
+                                    }
+                                />
+                            )}
+                        </div>
+                        <div className="card-footer text-center">
+                            Created with ❤️ by Quiz Master
+                        </div>
+                    </div>
+                );
+            }
+        }
+
+        const Menu = ({ startQuiz }) => (
+            <div className="text-center">
+                <button className="btn btn-primary" onClick={startQuiz}>
+                    Start Quiz
+                </button>
+            </div>
+        );
+
+        const QList = ({ qlist, answers, valid, onAnswerChange, checkAnswers }) => (
+            <div>
+                {qlist.map((q, i) => (
+                    <div key={i} className="mb-3">
+                        <p>
+                            <b>{i + 1}. </b>
+                            <span dangerouslySetInnerHTML={{ __html: q.title }}></span>
+                        </p>
+                        {q.options.map((option, j) => (
+                            <div key={j} className="form-check">
+                                <input
+                                    type="radio"
+                                    className="form-check-input"
+                                    name={"q" + i}
+                                    value={j + 1}
+                                    checked={answers["q" + i] == j + 1}
+                                    onChange={(e) => onAnswerChange(e.target.name, e.target.value)}
+                                />
+                                <label className="form-check-label">{option}</label>
+                            </div>
+                        ))}
+                    </div>
+                ))}
+                <div className="text-center">
+                    <button
+                        className="btn btn-success"
+                        onClick={checkAnswers}
+                        disabled={!valid}
+                    >
+                        Check Answers
+                    </button>
+                    {!valid && <p className="text-danger mt-2">Please answer all questions!</p>}
+                </div>
+            </div>
+        );
+
+        const ShowScore = ({ qlist, score, correctAnswers, restartQuiz }) => (
+            <div className="text-center">
+                <h4>Your Score: {score}/{qlist.length}</h4>
+                <ul className="list-group mt-3">
+                    {qlist.map((q, i) => (
+                        <li
+                            key={i}
+                            className={`list-group-item ${
+                                correctAnswers[i] ? "list-group-item-success" : "list-group-item-danger"
+                            }`}
+                        >
+                            {i + 1}. <span dangerouslySetInnerHTML={{ __html: q.title }}></span>{" "}
+                            {correctAnswers[i] ? "✔️" : "❌"}
+                        </li>
+                    ))}
+                </ul>
+                <button className="btn btn-primary mt-3" onClick={restartQuiz}>
+                    Restart Quiz
+                </button>
+            </div>
+        );
+
+        ReactDOM.createRoot(document.getElementById("myapp")).render(<App />);
+    </script>
+</body>
+</html>
