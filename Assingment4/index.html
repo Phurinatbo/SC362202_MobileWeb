@@ -1,0 +1,69 @@
+<html>
+    <head>
+        <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/gh/c-frame/aframe-extras@7.5.2/dist/aframe-extras.min.js"></script>
+        <style>
+            body {
+                margin: 0;
+                overflow: hidden;
+            }
+        </style>
+    </head>
+    <body>
+        <a-scene>
+            <a-light type="directional" position="-2 4 -3" intensity="1.2"></a-light>
+            <a-light type="ambient" color="#888"></a-light>
+
+            <a-sky src="Images/room2.jpg"></a-sky>
+
+            <!-- Button to open profile -->
+            <a-box id="profile-button" position="0 1 -2" width="2" height="0.5" depth="0.1" color="#3498db" shadow="cast: true"
+                event-set__mouseenter="scale: 1.2 1.2 1.2; color: #2980b9"
+                event-set__mouseleave="scale: 1 1 1; color: #3498db">
+                <a-text value="Enter Profile" align="center" position="0 0 0.1" color="#fff" scale="1.5 1.5 1.5"></a-text>
+            </a-box>
+
+            <!-- Profile window -->
+            <a-plane id="profile-window" position="0 0 -3" width="4" height="1.8" color="#f5f5f5" visible="false" material="opacity: 0.9"
+                animation__show="property: position; to: 0 2 -3; dur: 500; startEvents: show"
+                animation__hide="property: position; to: 0 0 -3; dur: 500; startEvents: hide">
+                <a-text value="Personal Information" position="0 0.89 0.1" align="center" color="#000" scale="1.5 1.5 1.5"></a-text>
+                <a-image src="Images/Profile.jpg" position="-1.5 0 0.1" width="0.8" height="0.8" material="opacity: 1"></a-image>
+                <a-text value="Name: Phurinat Boonmathueg" position="0.4 0.3 0.1" align="center" color="#000"></a-text>
+                <a-text value="StdID: 663380180-5" position="-0.1 0 0.1" align="center" color="#000"></a-text>
+                <a-text value="Hobby: Book, Game" position="-0.08 -0.3 0.1" align="center" color="#000"></a-text>
+                <a-box position="0 -0.7 0.1" width="0.6" height="0.2" depth="0.1" color="red"
+                    event-set__mouseenter="color: #c0392b" event-set__mouseleave="color: #e74c3c"
+                    onclick="toggleProfile()">
+                    <a-text value="Close" align="center" position="0 0 0.1" width="2" color="#ffffff" scale="1.2 1.2 1.2"></a-text>
+                </a-box>
+            </a-plane>
+        </a-scene>
+
+        <script>
+            const profileButton = document.getElementById('profile-button');
+            const profileWindow = document.getElementById('profile-window');
+
+            function toggleProfile() {
+                const isVisible = profileWindow.getAttribute('visible');
+                if (isVisible) {
+                    profileWindow.emit('hide'); // Trigger hide animation
+                    setTimeout(() => {
+                        profileWindow.setAttribute('visible', false);
+                    }, 500); // Hide after animation duration
+                } else {
+                    profileWindow.setAttribute('visible', true);
+                    profileWindow.emit('show'); // Trigger show animation
+                }
+            }
+
+            profileButton.addEventListener('click', toggleProfile);
+
+            document.addEventListener('keydown', (event) => {
+                if (event.key === ' ' || event.key === 'Enter') {
+                    toggleProfile();
+                }
+            });
+        </script>
+    </body>
+</html>
